@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    background: #eee;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    font-family: 'Eastman', sans-serif;
+}
+
+
+.link {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Eastman', sans-serif;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Eastman', sans-serif;
+}
+
+.contact-container h2 {
+    margin-bottom: 20px;
+}
