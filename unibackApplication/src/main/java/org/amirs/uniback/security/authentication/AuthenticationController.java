@@ -1,4 +1,4 @@
-package org.amirs.uniback.security.controller;
+package org.amirs.uniback.security.authentication;
 
 import lombok.RequiredArgsConstructor;
 import org.amirs.uniback.security.authentication.AuthenticationRequest;

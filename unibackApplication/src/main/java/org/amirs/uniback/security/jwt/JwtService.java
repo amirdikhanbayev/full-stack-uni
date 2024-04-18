@@ -18,17 +18,15 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    @Value()
-    private final String jwtSecret;
-
-    @Value()
-    private final Long expiration;
-
-    @Value()
-    private final Long refreshExpiration;
+    @Value("${application.security.jwt.secret-key}")
+    private String secretKey;
+    @Value("${application.security.jwt.expiration}")
+    private long jwtExpiration;
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshExpiration;
 
     public String extractUsername(String token) {
-        return
+        return extractClaim(token, Claims::getSubject);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -49,7 +47,7 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
-        return buildToken(extraClaims, userDetails, expiration);
+        return buildToken(extraClaims, userDetails, refreshExpiration);
     }
 
     private String buildToken(
@@ -66,6 +64,8 @@ public class JwtService {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
+
 
     public String generateRefreshToken(
             UserDetails userDetails
@@ -91,7 +91,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
