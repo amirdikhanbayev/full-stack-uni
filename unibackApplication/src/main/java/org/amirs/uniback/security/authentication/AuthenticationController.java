@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/auth")
 public class AuthenticationController {
 
-    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest cred){
-        return ResponseEntity.ok(userService.createUser())
+        return ResponseEntity.ok(authenticationService.register(cred));
     }
 }
